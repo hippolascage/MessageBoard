@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/Site.css",
+    "inputFile": "Content/Site.less"
+  },
+  {
+    "outputFile": "Scripts/custom.es5.js",
+    "inputFile": "Scripts/custom.js"
+  },
+  {
+    "outputFile": "Scripts/easing.es5.js",
+    "inputFile": "Scripts/easing.js"
+  }
+]
