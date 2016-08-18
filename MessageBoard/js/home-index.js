@@ -108,7 +108,7 @@
             var deferred = $q.defer();
 
             var apiUrl = "/api/v1/topics/" + topic.id + "/replies";
-            $http.post(apiUrl)
+            $http.post(apiUrl, newReply)
                 .then(function (response) {
                     if (topic.replies == null) topic.replies = [];
                     topic.replies.push(response.data)
