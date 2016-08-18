@@ -27,7 +27,7 @@
         <fieldset>
             <div>
                 <label for="title">Body</label>
-                <textarea name="Body" rows="5" colunns="30" data-ng-model="vm.newReply.body" required minlength="15" />
+                <textarea name="body" rows="5" colunns="30" data-ng-model="vm.newReply.body" required minlength="15" />
                 <span class="error" data-ng-show="newReplyForm.body.$error.required">*</span>
                 <span class="error" data-ng-show="newReplyForm.body.$error.minlength">Minimum 15 characters</span>
              </div>
