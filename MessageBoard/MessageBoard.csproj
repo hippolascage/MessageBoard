@@ -283,6 +283,12 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="Content\Site.less" />
+    <Content Include="js\home-index.es5.js">
+      <DependentUpon>home-index.js</DependentUpon>
+    </Content>
+    <Content Include="js\home-index.es5.min.js">
+      <DependentUpon>home-index.es5.js</DependentUpon>
+    </Content>
     <Content Include="js\home-index.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

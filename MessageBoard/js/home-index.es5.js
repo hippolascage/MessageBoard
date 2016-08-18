@@ -1,4 +1,6 @@
-﻿(function () {
+﻿"use strict";
+
+(function () {
     "use strict";
 
     var module = angular.module("homeIndex", ["ngRoute"]);
@@ -25,43 +27,39 @@
         var _topics = [];
         var _isInit = false;
 
-        var _isReady = function () {
+        var _isReady = function _isReady() {
             return _isInit;
-        }
+        };
 
-        var _getTopics = function () {  
-            
+        var _getTopics = function _getTopics() {
+
             var deferred = $q.defer();
 
-            $http.get("/api/v1/topics?includeReplies=true")
-                .then(function (response) {
-                    angular.copy(response.data, _topics);
-                    _isInit = true;
-                    deferred.resolve();
-                },
-                function () {
-                    // to do: logging
-                    deferred.reject();
-                });
+            $http.get("/api/v1/topics?includeReplies=true").then(function (response) {
+                angular.copy(response.data, _topics);
+                _isInit = true;
+                deferred.resolve();
+            }, function () {
+                // to do: logging
+                deferred.reject();
+            });
 
             return deferred.promise;
-        }
+        };
 
-        var _addTopic = function(newTopic) {
+        var _addTopic = function _addTopic(newTopic) {
             var deferred = $q.defer();
 
-            $http.post("/api/v1/topics", newTopic)
-                .then(function (response) {
-                    var newlyCreatedTopic = response.data;
-                    _topics.splice(0, 0, newlyCreatedTopic);
-                    deferred.resolve(newlyCreatedTopic);
-                },
-                function () {
-                    deferred.reject();
-                });
+            $http.post("/api/v1/topics", newTopic).then(function (response) {
+                var newlyCreatedTopic = response.data;
+                _topics.splice(0, 0, newlyCreatedTopic);
+                deferred.resolve(newlyCreatedTopic);
+            }, function () {
+                deferred.reject();
+            });
 
             return deferred.promise;
-        }
+        };
 
         function _findTopic(id) {
             var found = null;
@@ -76,9 +74,9 @@
             return found;
         }
 
-        var _getTopicById = function (id) {
+        var _getTopicById = function _getTopicById(id) {
             var deferred = $q.defer();
-            
+
             if (_isReady()) {
                 var topic = _findTopic(id);
                 if (topic) {
@@ -87,38 +85,35 @@
                     deferred.reject();
                 }
             } else {
-                _getTopics().
-                then(function () {
+                _getTopics().then(function () {
                     var topic = _findTopic(id);
                     if (topic) {
                         deferred.resolve(topic);
                     } else {
                         deferred.reject();
                     }
-                },
-                function () {
+                }, function () {
                     deferred.reject();
                 });
             }
 
             return deferred.promise;
-        }
+        };
 
-        var _saveReply = function (topic, newReply) {
+        var _saveReply = function _saveReply(topic, newReply) {
             var deferred = $q.defer();
 
             var apiUrl = "/api/v1/topics/" + topic.id + "/replies";
-            $http.post(apiUrl, newReply)
-                .then(function (response) {
-                    if (topic.replies == null) topic.replies = [];
-                    topic.replies.push(response.data)
-                    deferred.resolve(response.data);
-                }, function () {
-                    deferred.reject();
-                });
+            $http.post(apiUrl, newReply).then(function (response) {
+                if (topic.replies == null) topic.replies = [];
+                topic.replies.push(response.data);
+                deferred.resolve(response.data);
+            }, function () {
+                deferred.reject();
+            });
 
             return deferred.promise;
-        }
+        };
 
         return {
             topics: _topics,
@@ -137,18 +132,12 @@
 
         if (!dataService.isReady()) {
             vm.isBusy = true;
-            dataService.getTopics()
-            .then(function () {
-
-            },
-            function () {
+            dataService.getTopics().then(function () {}, function () {
                 console.error("Could not load topics");
-            })
-            .then(function () {
+            }).then(function () {
                 vm.isBusy = false;
             });
         }
-
     }];
     module.controller('topicsController', topicsController);
 
@@ -157,21 +146,18 @@
         vm.topic = null;
         vm.newReply = {};
 
-        dataService.getTopicById($routeParams.id)
-            .then(function (topic) {
-                vm.topic = topic;
-            }, function () {
-                $window.location = "#/";
-            });
+        dataService.getTopicById($routeParams.id).then(function (topic) {
+            vm.topic = topic;
+        }, function () {
+            $window.location = "#/";
+        });
 
         vm.addReply = function () {
-            dataService.saveReply(vm.topic, vm.newReply)
-                .then(function () {
-                    vm.newReply.body = "";
-                }, function () {
-                    console.error("Could not save new reply");
-                })
-
+            dataService.saveReply(vm.topic, vm.newReply).then(function () {
+                vm.newReply.body = "";
+            }, function () {
+                console.error("Could not save new reply");
+            });
         };
     }];
     module.controller('singleTopicController', singleTopicController);
@@ -182,17 +168,14 @@
 
         vm.save = function () {
 
-            dataService.addTopic(vm.newTopic)
-                .then(function () {
-                    $window.location = "#/;"
-                },
-                function () {
-                    console.error("Could not create topic");
-                })
-
-        }
+            dataService.addTopic(vm.newTopic).then(function () {
+                $window.location = "#/;";
+            }, function () {
+                console.error("Could not create topic");
+            });
+        };
     }];
-    
-    module.controller('newTopicController', newTopicController);
 
-}());
+    module.controller('newTopicController', newTopicController);
+})();
+

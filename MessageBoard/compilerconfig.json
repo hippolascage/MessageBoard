@@ -10,5 +10,9 @@
   {
     "outputFile": "Scripts/easing.es5.js",
     "inputFile": "Scripts/easing.js"
+  },
+  {
+    "outputFile": "js/home-index.es5.js",
+    "inputFile": "js/home-index.js"
   }
 ]

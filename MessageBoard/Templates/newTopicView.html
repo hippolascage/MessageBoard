@@ -3,13 +3,13 @@
     <fieldset>
         <div>
             <label for="title">Title</label>
-            <input name="Title" type="text" data-ng-model="vm.newTopic.title" required minlength="5" />
+            <input name="title" type="text" data-ng-model="vm.newTopic.title" required minlength="5" />
             <span class="error" data-ng-show="newTopicForm.title.$error.required">*</span>
             <span class="error" data-ng-show="newTopicForm.title.$error.minlength">Minimum 5 characters</span>
         </div>
         <div>
             <label for="title">Body</label>
-            <textarea name="Body" rows="5" colunns="30" data-ng-model="vm.newTopic.body" required minlength="15" />
+            <textarea name="body" rows="5" colunns="30" data-ng-model="vm.newTopic.body" required minlength="15" />
             <span class="error" data-ng-show="newTopicForm.body.$error.required">*</span>
             <span class="error" data-ng-show="newTopicForm.body.$error.minlength">Minimum 15 characters</span>
         </div>

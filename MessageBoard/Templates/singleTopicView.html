@@ -1,6 +1,4 @@
-﻿<a href="#/" class="btn">Back</a>
-
-<div class="messages">
+﻿<div class="messages">
     <div class="message row">
         <div class="title span10">
             {{ vm.topic.title }}
@@ -30,9 +28,10 @@
                 <textarea name="body" rows="5" colunns="30" data-ng-model="vm.newReply.body" required minlength="15" />
                 <span class="error" data-ng-show="newReplyForm.body.$error.required">*</span>
                 <span class="error" data-ng-show="newReplyForm.body.$error.minlength">Minimum 15 characters</span>
-             </div>
+            </div>
             <div>
-                <input type="submit" class="btn btp-primary" value="Save" data-ng-disabled="newReplyForm.$invalid" />
+                <input type="submit" class="btn btn-primary" value="Save" data-ng-disabled="newReplyForm.$invalid" />
+                <a href="#/" class="btn">Back</a>
             </div>
         </fieldset>
     </form>
